@@ -59,9 +59,9 @@ To train the model, follow these steps:
 
   All hyperparameters are located at the top of the script for easy modification.
 3. Train the model using:
-    ```bash
+    
     python3 dcgan.py
-    ```
+
 ## Evaluation
 
 After training, the model is evaluated on the test set. The following metrics are computed for evaluation:

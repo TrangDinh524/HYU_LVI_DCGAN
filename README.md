@@ -20,7 +20,7 @@ pip install torch torchvision matplotlib numpy scipy ipython tqdm
 
 The following hyperparameters are used for training:
 
-- Number of Epochs: 100
+- Number of Epochs: 200
 - Batch Size: 256
 - Learning Rate: 0.0004
 - Beta1: 0.5
@@ -52,7 +52,7 @@ To train the model, follow these steps:
 
 2. Configure the following hyperparameters and set relevant paths in the script:
 
-    - Number of Epochs: 100  
+    - Number of Epochs: 200  
     - Batch Size: 256  
     - Learning Rate: 0.0004  
     - Beta1: 0.5  

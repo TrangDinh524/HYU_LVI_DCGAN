@@ -21,8 +21,8 @@ pip install torch torchvision matplotlib numpy scipy ipython tqdm
 The following hyperparameters are used for training:
 
 - Number of Epochs: 100
-- Batch Size: 128
-- Learning Rate: 0.0002
+- Batch Size: 256
+- Learning Rate: 0.0004
 - Beta1: 0.5
 
 ## Model Architecture
@@ -53,15 +53,17 @@ To train the model, follow these steps:
 2. Configure the following hyperparameters and set relevant paths in the script:
 
     - Number of Epochs: 100  
-    - Batch Size: 128  
-    - Learning Rate: 0.0002  
+    - Batch Size: 256  
+    - Learning Rate: 0.0004  
     - Beta1: 0.5  
 
   All hyperparameters are located at the top of the script for easy modification.
 3. Train the model using:
-    
     python3 dcgan.py
-
+    
+4. Model is automatically logged during training to folder:
+- `dcgan_3'
+  
 ## Evaluation
 
 After training, the model is evaluated on the test set. The following metrics are computed for evaluation:

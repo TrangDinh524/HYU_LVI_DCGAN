@@ -58,11 +58,14 @@ To train the model, follow these steps:
     - Beta1: 0.5  
 
   All hyperparameters are located at the top of the script for easy modification.
+  
 3. Train the model using:
-    python3 dcgan.py
-    
-4. Model is automatically logged during training to folder:
-- `dcgan_4'
+    nohup python3 dcgan_3.py &
+
+    If you want to check the process of the model during training, run 'tail nohup.out'
+   
+5. Model is automatically logged during training to folder:
+- `nohup.out'
   
 ## Evaluation
 

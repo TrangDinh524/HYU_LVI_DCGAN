@@ -60,9 +60,14 @@ To train the model, follow these steps:
   All hyperparameters are located at the top of the script for easy modification.
   
 3. Train the model using:
-    nohup python3 dcgan_3.py &
+   ```bash
+        nohup python3 dcgan_3.py &
+    ```
 
-    If you want to check the process of the model during training, run 'tail nohup.out'
+    If you want to check the process of the model during training, run:
+    ```bash
+       tail nohup.out
+    ```
    
 5. Model is automatically logged during training to folder:
 - `nohup.out'

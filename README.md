@@ -71,6 +71,7 @@ To train the model, follow these steps:
    
 5. Model is automatically logged during training to folder:
 - `nohup.out'
+- To find the best scores, please Find (Ctrl + F) + keyword 'FID' in the above file and see the result manually
   
 ## Evaluation
 

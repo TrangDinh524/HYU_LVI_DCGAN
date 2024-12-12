@@ -1,7 +1,3 @@
-"""
-Changes compared to `dcgan_0`: set epoch to 11 to test code
-"""
-
 # %%
 import os
 import os.path as osp
@@ -34,14 +30,15 @@ torch.use_deterministic_algorithms(True) # Needed for reproducible results
 # %%
 # Root directory for dataset
 dataroot = "./data"
-save_dir = "./dcgan_3"
+save_dir = "./dcgan_4"
 os.makedirs(save_dir, exist_ok=True)
+compute_intra_fid = True
 
 # Number of workers for dataloader
 workers = 2
 
 # Batch size during training
-batch_size = 128
+batch_size = 64
 
 # Spatial size of training images. All images will be resized to this
 #   size using a transformer.
@@ -60,8 +57,8 @@ ngf = 64
 ndf = 64
 
 # Number of training epochs
-eval_every = 10
-num_epochs = 11
+eval_every = 1
+num_epochs = 100
 
 # Learning rate for optimizers
 lr = 0.0002
@@ -529,8 +526,9 @@ for epoch in range(num_epochs):
         fid_score = calculate_fid(mu_real, sigma_real, mu_fake, sigma_fake)
         fid_scores.append((iters,fid_score))
         # Calculate intra FID
-        intra_fid, _ = calculate_intra_fid(real_features, None, real_labels, fake_features, None, fake_labels)
-        intra_fid_scores.append(intra_fid)
+        if compute_intra_fid:
+            intra_fid, _ = calculate_intra_fid(real_features, None, real_labels, fake_features, None, fake_labels)
+            intra_fid_scores.append(intra_fid)
         # Calculate Inception Score
         is_value, is_std = calculate_inception_score(fake_preds)
         is_list.append(is_value)
@@ -538,7 +536,11 @@ for epoch in range(num_epochs):
         eval_time = time.time() - _start_time
         total_eval_time += eval_time
         print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f\tFID: %.2f\tIntra FID: %.2f\tIS: %.2f\tTrain Time: %.2f\tEval Time: %.2f'
-            % (epoch, num_epochs, i, len(dataloader), errD.item(), errG.item(), D_x, D_G_z1, D_G_z2, fid_score, intra_fid, is_value, train_time, eval_time))
+            % (
+                epoch, num_epochs, i, len(dataloader), errD.item(), errG.item(), D_x, D_G_z1, D_G_z2,
+                fid_score, intra_fid if compute_intra_fid else 0.0, is_value, train_time, eval_time
+            )
+        )
 
 print(f"Total training time: {total_train_time:.2f}s")
 print(f"Total evaluation time: {total_eval_time:.2f}s")
@@ -567,7 +569,8 @@ plt.close()
 plt.figure(figsize=(10, 5))
 fid_steps_, fid_scores_ = zip(*fid_scores)
 plt.plot(fid_steps_, fid_scores, label="FID")
-plt.plot(fid_steps_, intra_fid_scores, label="Intra FID")
+if compute_intra_fid:
+    plt.plot(fid_steps_, intra_fid_scores, label="Intra FID")
 plt.plot(fid_steps_, is_list, label="Inception Score")
 plt.xlabel("Epoch")
 plt.ylabel("Metric")
